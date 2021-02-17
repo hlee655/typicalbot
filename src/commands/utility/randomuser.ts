@@ -1,3 +1,4 @@
+import { MessageEmbed } from 'discord.js';
 import Command from '../../lib/structures/Command';
 import { TypicalGuildMessage } from '../../lib/types/typicalbot';
 import { MODE } from '../../lib/utils/constants';
@@ -27,10 +28,10 @@ export default class extends Command {
         if (!amount || amount === 1) {
             const member = members.random();
 
-            return message.send(message.translate('utility/randomuser:RANDOM', {
-                tag: member.user.tag,
-                id: member.id
-            }));
+            return message.send(new MessageEmbed()
+                .setAuthor(member.user.username, member.user.displayAvatarURL({ format: 'png', size: 2048 }))
+                .setThumbnail(member.user.displayAvatarURL({ format: 'png', size: 2048 }))
+            );
         }
 
         const userIDs = new Set<string>();
